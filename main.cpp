@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
 
@@ -51,7 +52,11 @@ int main(int argc, const char * argv[])
 {
    
  
-   
+  // Add a check for command line arguments
+  if( 2 != argc ) {
+    cout << "Usage: " << argv[0] << " <networ file name>" << endl;
+    exit(-1);
+  }
     
     
     //          Initial values  ----------------------------------------
@@ -84,7 +89,7 @@ int main(int argc, const char * argv[])
     
     
     ifstream file ;
-    file.open( "/Users/nasimmobasheri/Documents/SocialNetwork/btest.txt" );
+    file.open( argv[1] );
     
     if (!file) {
         cout << "Problem reading file"<<endl ;
@@ -364,6 +369,7 @@ int main(int argc, const char * argv[])
    //*************************************************************************************\\
     
     freeNode() ;
+    cout << endl;
     return 0;
 }
 

@@ -2,7 +2,7 @@
 CC = g++
 
 # define any compile-time flags
-CFLAGS = -Wall -g -std=c++11
+CFLAGS = -Wall -g -std=c++14
 
 # define any directories containing header files other than /usr/include
 #
@@ -16,7 +16,7 @@ LFLAGS =
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname 
 #   option, something like (this will link in libmylib.so and libm.so:
-LIBS = 
+LIBS =
 
 # define the C++ source files
 SRCS = main.cpp
@@ -29,7 +29,7 @@ SRCS = main.cpp
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
 #
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cpp=.o)
 
 # define the executable file 
 MAIN = social
@@ -40,7 +40,7 @@ MAIN = social
 # deleting dependencies appended to the file from 'make depend'
 #
 
-.PHONY: depend clean
+.PHONY: test clean
 
 all:    $(MAIN)
 	@echo  Compiled social
@@ -52,8 +52,11 @@ $(MAIN): $(OBJS)
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
-.c.o:
+.cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
 	$(RM) *.o *~ $(MAIN)
+
+test: all
+	$(MAIN) btest.txt

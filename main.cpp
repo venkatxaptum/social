@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 
 
@@ -16,6 +15,7 @@ using namespace std;
 
 void freeNode();
 void bfs ( int s , int numberOfNodes );
+void quicksort (int array[] , int numberOfNodes) ;
 
 
 struct node                 // structure 1 to save noeds
@@ -39,7 +39,7 @@ struct node *graph = NULL, *curVer = NULL, *curVer1 = NULL, *auxVer = NULL , *cu
 struct linkedList *curVer2 = NULL , *auxVer2 = NULL , *curVer4 = NULL;
 
 
-void bfs (int s , int numberOfNodes) ;
+
 
 
 //                          ----------------------------------------
@@ -52,11 +52,7 @@ int main(int argc, const char * argv[])
 {
    
  
-  // Add a check for command line arguments
-  if( 2 != argc ) {
-    cout << "Usage: " << argv[0] << " <networ file name>" << endl;
-    exit(-1);
-  }
+   
     
     
     //          Initial values  ----------------------------------------
@@ -89,7 +85,7 @@ int main(int argc, const char * argv[])
     
     
     ifstream file ;
-    file.open( argv[1] );
+    file.open( "/Users/nasimmobasheri/Documents/SocialNetwork/btest.txt" );
     
     if (!file) {
         cout << "Problem reading file"<<endl ;
@@ -262,19 +258,19 @@ int main(int argc, const char * argv[])
     
     //*************************************************************************************\\
     
-    int i , j ,  counter_for_degree = 0 ;
+    int  j ,  counter_for_degree = 0 ;
     int degreeCounter = 0 ;
     int numberOfNodes = 0;
     int arrayvalue ;
-    int arrayHolder[numberOfNodes];
+  
     curVer = graph;
+    
     while (curVer != NULL)
     {
         
         ++numberOfNodes;
         
-        arrayHolder[i] = curVer->nValue ;
-        i++ ;
+       
         curVer2 = curVer->adjacency;
         counter_for_degree = 0;
     //    cout << "\t" <<curVer->nValue;
@@ -296,30 +292,64 @@ int main(int argc, const char * argv[])
         curVer = curVer->nextVertex;
     }
     
+    int arrayHolder[numberOfNodes];
+  
+    curVer = graph;
+    
+    // sorting nodes
+    int i = 0 ;
+    
+    while (curVer != NULL) {
+        
+        arrayHolder[i] = curVer->nValue ;
+        i++ ;
+        curVer= curVer->nextVertex;
+        
+    }
+    
+    for (int i = 0; i< numberOfNodes; i++) {
+        cout << arrayHolder[i]<< "\t";
+    }
+    
+    cout<< endl;
+    
+    quicksort(arrayHolder , numberOfNodes) ;
+    
+    for (int i= 0; i<numberOfNodes; i++) {
+        cout << arrayHolder[i]<<"\t" ;
+    }
+     cout<< endl;
+    
      int matrix[numberOfNodes][numberOfNodes];
     for (i=0; i<=numberOfNodes; i++) {
         
         arrayvalue = arrayHolder[i] ;
         bfs(arrayvalue, numberOfNodes);
         
-        curVer =  graph;
+       
         curVer1 = graph ;
         
-    /*    while (curVer1 != NULL) {
+     /*   while (curVer1 != NULL) {
             cout << "Bfs for" << arrayvalue << "\t" ;
             cout << "node #"<< curVer1->nValue<< "\t"<<curVer1->level ;
             curVer1 = curVer1->nextVertex ;
             cout<<endl ;
         }
         
-      */  
+      */
         
         
         for (j=0; j<numberOfNodes; j++) {
+            curVer =  graph;
+            while (arrayHolder[j] != curVer->nValue) {
+                
+                curVer = curVer->nextVertex;
+                
+            }
             
             matrix[i][j]=curVer->level ;
             
-            curVer = curVer->nextVertex;
+            
         }//end of j
         
         for (int yy = 0 ; yy < numberOfNodes ; ++yy)
@@ -369,7 +399,6 @@ int main(int argc, const char * argv[])
    //*************************************************************************************\\
     
     freeNode() ;
-    cout << endl;
     return 0;
 }
 
@@ -390,7 +419,40 @@ void freeNode() {
         curVer1 = auxVer;
     }
     
+    return;
+    
 }
+
+
+void quicksort(int array[] , int numberOfNodes ){
+    
+    int  j = 0 ;
+    int temp;
+    for (int i = 0; i < numberOfNodes; i++){
+        j = i;
+        
+        while (j > 0 && array[j] < array[j-1]){
+            temp = array[j];
+            array[j] = array[j-1];
+            array[j-1] = temp;
+            j--;
+        }
+    }
+        
+        return;
+    }
+    
+    
+    
+
+
+
+
+
+
+
+
+
 
 
 

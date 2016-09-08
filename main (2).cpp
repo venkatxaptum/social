@@ -103,9 +103,7 @@ int main(int argc, const char * argv[]) {
         sizeboun = Vprim.size() ;
         
   
-      
-        int arraydup [counterdif] ; //this array is used to store set duplicates for calculating miu 
-        int valholder[counterdif] ; // this array holds  all members of V-Vprim
+     
         
        
         // as long as V-Vprime is not empty and we have not found a set 
@@ -113,6 +111,10 @@ int main(int argc, const char * argv[]) {
              std:: vector<vector<int>> setd;  // create a vector of vectors to hold values of D 
             int counter_row = 0; // this variable ensures that in iteration our set does not make more subsets 
             counterdif = numberOfNodes - Vprim.size();
+            
+             
+        int arraydup [counterdif] ; //this array is used to store set duplicates for calculating miu 
+        int valholder[counterdif] ; // this array holds  all members of V-Vprim
          
             int   iter2index =0 ; // find the index of nodenumber 
             
